@@ -89,13 +89,16 @@ public class SistemaMaletas {
             System.out.print("Cantidad a comprar: ");
             int cant = sc.nextInt();
             c.realizarVenta(p, cant);
+            p.setStock(p.getStock()-cant);
+
         } else {
             System.out.println("Productos.Producto no encontrado.");
         }
     }
 
     static void mostrarTodos() {
-        for (Producto p : productos) p.mostrarDetalle();
+        for (Producto p : productos)
+            p.mostrarDetalle();
     }
 
     static void mostrarEmpleados() {

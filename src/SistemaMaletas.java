@@ -1,132 +1,8 @@
 // EMPRESA DE VENTA DE MALETAS - POO EN JAVA (ACTUALIZADO)
 
+import Empleados.*;
+import Productos.*;
 import java.util.*;
-
-// SUPERCLASE: Empleado
-abstract class Empleado {
-    protected String nombre;
-    protected String id;
-    protected String rol;
-
-    public Empleado(String nombre, String id, String rol) {
-        this.nombre = nombre;
-        this.id = id;
-        this.rol = rol;
-    }
-
-    public void mostrarInfo() {
-        System.out.println("Empleado: " + nombre + " | Rol: " + rol);
-    }
-}
-
-// SUBCLASES
-class Cajero extends Empleado {
-    public Cajero(String nombre, String id) {
-        super(nombre, id, "Cajero");
-    }
-
-    public void realizarVenta(Producto p, int cantidad) {
-        double subtotal = p.getPrecio() * cantidad;
-        if (p instanceof Mochila) subtotal *= 0.90;
-        if (p instanceof MaletaViaje) subtotal *= 0.80;
-        double total = subtotal * 1.15;
-        System.out.println("Venta realizada. Total a pagar: $" + total);
-    }
-
-    public void consultarDetalle(Producto p) {
-        p.mostrarDetalle();
-    }
-}
-
-class Vendedor extends Empleado {
-    public Vendedor(String nombre, String id) {
-        super(nombre, id, "Vendedor");
-    }
-
-    public void consultarDetalle(Producto p) {
-        p.mostrarDetalle();
-    }
-}
-
-class Administrador extends Empleado {
-    public Administrador(String nombre, String id) {
-        super(nombre, id, "Administrador");
-    }
-}
-
-class Gerente extends Empleado {
-    public Gerente(String nombre, String id) {
-        super(nombre, id, "Gerente");
-    }
-}
-
-class PersonalLimpieza extends Empleado {
-    public PersonalLimpieza(String nombre, String id) {
-        super(nombre, id, "Limpieza");
-    }
-}
-
-// SUPERCLASE PRODUCTO
-class Producto {
-    private String codigo;
-    private String descripcion;
-    private String ubicacion;
-    private int stock;
-    private double precio;
-
-    public Producto(String codigo, String descripcion, String ubicacion, int stock, double precio) {
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.ubicacion = ubicacion;
-        this.stock = stock;
-        this.precio = precio;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void mostrarDetalle() {
-        System.out.println("\nCódigo: " + codigo);
-        System.out.println("Descripción: " + descripcion);
-        System.out.println("Ubicación: " + ubicacion);
-        System.out.println("Stock: " + stock);
-        System.out.println("Precio: $" + precio);
-    }
-
-    public void mostrarPrecio() {
-        System.out.println("\nPrecio del producto: $" + precio);
-    }
-}
-
-// SUBCLASES DE PRODUCTO
-class Mochila extends Producto {
-    public Mochila(String codigo, String descripcion, String ubicacion, int stock, double precio) {
-        super(codigo, descripcion, ubicacion, stock, precio);
-    }
-}
-
-class Bolso extends Producto {
-    public Bolso(String codigo, String descripcion, String ubicacion, int stock, double precio) {
-        super(codigo, descripcion, ubicacion, stock, precio);
-    }
-}
-
-class MaletaViaje extends Producto {
-    public MaletaViaje(String codigo, String descripcion, String ubicacion, int stock, double precio) {
-        super(codigo, descripcion, ubicacion, stock, precio);
-    }
-}
-
-class Lonchera extends Producto {
-    public Lonchera(String codigo, String descripcion, String ubicacion, int stock, double precio) {
-        super(codigo, descripcion, ubicacion, stock, precio);
-    }
-}
 
 // CLASE PRINCIPAL CON ARRAY Y MENU
 public class SistemaMaletas {
@@ -144,9 +20,9 @@ public class SistemaMaletas {
         int opcion;
         do {
             System.out.println("\n--- MENÚ PRINCIPAL ---");
-            System.out.println("1. Consultar detalle del producto (Cajero/Vendedor)");
+            System.out.println("1. Consultar detalle del producto (Personas.Cajero/Personas.Vendedor)");
             System.out.println("2. Consultar precio (Cliente)");
-            System.out.println("3. Realizar venta (Cajero)");
+            System.out.println("3. Realizar venta (Personas.Cajero)");
             System.out.println("4. Ver todos los productos");
             System.out.println("5. Ver empleados registrados");
             System.out.println("0. Salir");
@@ -165,10 +41,10 @@ public class SistemaMaletas {
 
     static void inicializarDatos() {
         // Productos
-        productos.add(new Mochila("M01", "Mochila Escolar", "Estante A", 10, 20.5));
-        productos.add(new Bolso("B01", "Bolso Mujer", "Estante B", 5, 35.0));
+        productos.add(new Mochila("M01", "Productos.Mochila Escolar", "Estante A", 10, 20.5));
+        productos.add(new Bolso("B01", "Productos.Bolso Mujer", "Estante B", 5, 35.0));
         productos.add(new MaletaViaje("MV01", "Maleta de Viaje", "Estante C", 3, 60.0));
-        productos.add(new Lonchera("L01", "Lonchera Niños", "Estante D", 12, 15.0));
+        productos.add(new Lonchera("L01", "Productos.Lonchera Niños", "Estante D", 12, 15.0));
 
         // Empleados
         empleados.add(new Cajero("Carlos", "C01"));
@@ -194,7 +70,7 @@ public class SistemaMaletas {
         String cod = sc.next();
         Producto p = buscarProducto(cod);
         if (p != null) p.mostrarDetalle();
-        else System.out.println("Producto no encontrado.");
+        else System.out.println("Productos.Producto no encontrado.");
     }
 
     static void clienteConsultar() {
@@ -202,7 +78,7 @@ public class SistemaMaletas {
         String cod = sc.next();
         Producto p = buscarProducto(cod);
         if (p != null) p.mostrarPrecio();
-        else System.out.println("Producto no encontrado.");
+        else System.out.println("Productos.Producto no encontrado.");
     }
 
     static void realizarVenta(Cajero c) {
@@ -214,7 +90,7 @@ public class SistemaMaletas {
             int cant = sc.nextInt();
             c.realizarVenta(p, cant);
         } else {
-            System.out.println("Producto no encontrado.");
+            System.out.println("Productos.Producto no encontrado.");
         }
     }
 

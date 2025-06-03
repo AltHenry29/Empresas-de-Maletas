@@ -1,6 +1,8 @@
-package Productos;
+package Empleados;
+import Productos.*;
 
-class Cajero extends Empleado {
+// SUBCLASES
+public class Cajero extends Empleado {
     public Cajero(String nombre, String id) {
         super(nombre, id, "Cajero");
     }
